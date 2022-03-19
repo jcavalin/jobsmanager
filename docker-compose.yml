@@ -13,7 +13,7 @@ services:
       DB_DATABASE: app
       DB_USERNAME: mysql
       DB_PASSWORD: mypass
-      XDEBUG_CONFIG: remote_host=172.17.0.1
+      XDEBUG_SESSION: xdebug-docker
       PHP_IDE_CONFIG: "serverName=xdebug-docker"
       DOCKER : 1
     volumes:
