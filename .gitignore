@@ -1,0 +1,14 @@
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+/application/coverage/
+/application/vendor/
+/application/logs/*
+!/application/logs/README.md
+/application/.phpunit.result.cache
