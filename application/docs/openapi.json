@@ -1,0 +1,19 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Application",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/": {
+            "get": {
+                "operationId": "49018aee737ae321b8fa3d1ce989ffc9",
+                "responses": {
+                    "200": {
+                        "description": "Documentation for OpenApi"
+                    }
+                }
+            }
+        }
+    }
+}

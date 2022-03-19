@@ -22,12 +22,13 @@
         }
     ],
     "require": {
-        "php": "^7.4 || ^8.0",
+        "php": "^8.0",
         "ext-json": "*",
         "monolog/monolog": "^2.3",
         "php-di/php-di": "^6.3",
         "slim/psr7": "^1.5",
-        "slim/slim": "^4.9"
+        "slim/slim": "^4.9",
+        "zircote/swagger-php": "^4.2"
     },
     "require-dev": {
         "jangregor/phpstan-prophecy": "^1.0.0",
@@ -56,6 +57,7 @@
     },
     "scripts": {
         "start": "php -S localhost:8080 -t public",
-        "test": "phpunit"
+        "test": "phpunit",
+        "openapi": "./vendor/bin/openapi ./src -o ./docs/openapi.json"
     }
 }
