@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: ./kompose convert -f ../docker-compose.yml
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: swagger
+  name: swagger
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: swagger
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: ./kompose convert -f ../docker-compose.yml
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: swagger
+    spec:
+      containers:
+        - env:
+            - name: SWAGGER_JSON
+              value: /tmp/openapi.json
+          image: swaggerapi/swagger-ui
+          name: swagger
+          ports:
+            - containerPort: 8080
+          resources: {}
+          volumeMounts:
+            - mountPath: /tmp/openapi.json
+              name: swagger-claim0
+      restartPolicy: Always
+      volumes:
+        - name: swagger-claim0
+          persistentVolumeClaim:
+            claimName: swagger-claim0
+status: {}
