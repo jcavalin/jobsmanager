@@ -59,7 +59,7 @@ class SaveJobAction extends JobAction
                         property: 'description',
                         description: 'Job description',
                         type: 'string',
-                        example: 'John Doe needs the financial report for the month of July last year to send to the accountant'
+                        example: 'John Doe needs the financial report for July last year to send to the accountant'
                     ),
                 ],
                 type: 'object'
