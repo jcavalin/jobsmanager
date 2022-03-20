@@ -42,4 +42,19 @@ class Job implements JsonSerializable
     {
         return $this->id;
     }
+
+    public function title(): string
+    {
+        return $this->title;
+    }
+
+    public function description(): string
+    {
+        return $this->description;
+    }
+
+    public function userId(): int
+    {
+        return $this->userId;
+    }
 }

@@ -34,6 +34,16 @@ class DbJobRepository implements JobRepository
 
     public function save(Job $job): Job
     {
+        $id = $this->db->save(
+            "INSERT INTO app.job (title, description, user_id) VALUES (:title, :description, :userId)",
+            [
+                'title'       => $job->title(),
+                'description' => $job->description(),
+                'userId'      => $job->userId(),
+            ]
+        );
 
+        $job->setId($id);
+        return $job;
     }
 }

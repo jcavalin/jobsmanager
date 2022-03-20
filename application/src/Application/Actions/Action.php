@@ -17,8 +17,11 @@ abstract class Action
 
     protected array $args;
 
+    protected Validation $validation;
+
     public function __construct()
     {
+        $this->validation = new Validation();
     }
 
     /**
@@ -67,7 +70,7 @@ abstract class Action
     protected function resolveArg(string $name): mixed
     {
         if (!isset($this->args[$name])) {
-            throw new HttpBadRequestException($this->request, "Could not resolve argument `{$name}`.");
+            throw new HttpBadRequestException($this->request, "Could not resolve argument '{$name}'.");
         }
 
         return $this->args[$name];
@@ -91,17 +94,5 @@ abstract class Action
         return $this->response
             ->withHeader('Content-Type', 'application/json')
             ->withStatus($payload->getStatusCode());
-    }
-
-    /**
-     * @throws ActionException
-     */
-    protected function validateRequired($params, $param): static
-    {
-        if (empty($params[$param])) {
-            throw new ActionException("The param {$param} is required.");
-        }
-
-        return $this;
     }
 }

@@ -3,14 +3,14 @@
 
 namespace App\Application\Actions\Job;
 
-use App\Application\Actions\ActionException;
+use App\Application\Actions\ValidationException;
 use Psr\Http\Message\ResponseInterface as Response;
 use OpenApi\Attributes as OA;
 
 class ListJobsAction extends JobAction
 {
     /**
-     * @throws ActionException
+     * @throws ValidationException
      */
     #[OA\Get(path: '/jobs', description: "Returns jobs according to the user", tags: ["Job"])]
     #[OA\Response(response: '200', description: 'Jobs list')]
@@ -27,7 +27,7 @@ class ListJobsAction extends JobAction
     protected function action(): Response
     {
         $params = $this->getQueryParams();
-        $this->validateRequired($params, 'user');
+        $this->validation->required($this->request, $params, 'user');
 
         $user = $this->userRepository->findByEmail($params['user']);
         $jobs = $this->jobRepository->findAll($user->isManager() ? null : $user->id());

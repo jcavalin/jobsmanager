@@ -47,9 +47,27 @@
                     "content": {
                         "multipart/form-data": {
                             "schema": {
+                                "required": [
+                                    "user",
+                                    "title",
+                                    "description"
+                                ],
                                 "properties": {
-                                    "usuario": {
-                                        "type": "string"
+                                    "user": {
+                                        "description": "The user email who is saving the job",
+                                        "type": "string",
+                                        "example": "regular.1@jobsmapp.com"
+                                    },
+                                    "title": {
+                                        "description": "Job title",
+                                        "type": "string",
+                                        "maximum": 100,
+                                        "example": "Send the financial report"
+                                    },
+                                    "description": {
+                                        "description": "Job description",
+                                        "type": "string",
+                                        "example": "John needs the financial report for the month of July last year to send to the accountant"
                                     }
                                 },
                                 "type": "object"
