@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace Tests\Application\Actions\Job;
 
 use App\Application\Actions\ActionPayload;
+use App\Application\Actions\ValidationException;
 use App\Domain\Job\JobRepository;
 use Tests\TestCase;
 
 class ListJobsActionTest extends TestCase
 {
-    public function testShouldManagerSeeAllJobs()
+    public function testShouldManagerUserSeeAllJobs()
     {
         $app = $this->getAppInstance();
 
@@ -29,7 +30,7 @@ class ListJobsActionTest extends TestCase
         $this->assertEquals($serializedPayload, $payload);
     }
 
-    public function testShouldRegularSeeOnlyHisJobs()
+    public function testShouldRegularUserSeeOnlyHisJobs()
     {
         $app = $this->getAppInstance();
 
@@ -46,5 +47,16 @@ class ListJobsActionTest extends TestCase
         $serializedPayload = json_encode($expectedPayload, JSON_PRETTY_PRINT);
 
         $this->assertEquals($serializedPayload, $payload);
+    }
+
+    public function testShouldValidateUserRequirement()
+    {
+        $app = $this->getAppInstance();
+
+        $this->expectException(ValidationException::class);
+
+        $request = $this->createRequest('GET', '/jobs')
+            ->withQueryParams([]);
+        $app->handle($request);
     }
 }
