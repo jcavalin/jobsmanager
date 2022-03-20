@@ -3,28 +3,18 @@
 declare(strict_types=1);
 
 use App\Application\Settings\SettingsInterface;
+use App\Infrastructure\Db\DatabaseInterface;
+use App\Infrastructure\Db\PdoDatabase;
 use DI\ContainerBuilder;
-use Monolog\Handler\StreamHandler;
-use Monolog\Logger;
-use Monolog\Processor\UidProcessor;
 use Psr\Container\ContainerInterface;
-use Psr\Log\LoggerInterface;
 
 return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([
-        LoggerInterface::class => function (ContainerInterface $c) {
+        DatabaseInterface::class => function (ContainerInterface $c) {
             $settings = $c->get(SettingsInterface::class);
+            $db       = $settings->get('db');
 
-            $loggerSettings = $settings->get('logger');
-            $logger = new Logger($loggerSettings['name']);
-
-            $processor = new UidProcessor();
-            $logger->pushProcessor($processor);
-
-            $handler = new StreamHandler($loggerSettings['path'], $loggerSettings['level']);
-            $logger->pushHandler($handler);
-
-            return $logger;
+            return new PdoDatabase($db['connection'], $db['host'], $db['database'], $db['username'], $db['password']);
         },
     ]);
 };

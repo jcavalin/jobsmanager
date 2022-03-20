@@ -1,6 +1,5 @@
 <?php
 
-declare(strict_types=1);
 
 namespace App\Application\Actions;
 
@@ -24,7 +23,7 @@ class ActionError implements JsonSerializable
 
     public function __construct(string $type, ?string $description)
     {
-        $this->type = $type;
+        $this->type        = $type;
         $this->description = $description;
     }
 
@@ -54,7 +53,7 @@ class ActionError implements JsonSerializable
     public function jsonSerialize(): array
     {
         return [
-            'type' => $this->type,
+            'type'        => $this->type,
             'description' => $this->description,
         ];
     }

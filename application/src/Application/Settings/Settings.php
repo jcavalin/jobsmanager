@@ -1,6 +1,5 @@
 <?php
 
-declare(strict_types=1);
 
 namespace App\Application\Settings;
 
@@ -14,9 +13,10 @@ class Settings implements SettingsInterface
     }
 
     /**
+     * @param string $key
      * @return mixed
      */
-    public function get(string $key = '')
+    public function get(string $key = ''): mixed
     {
         return (empty($key)) ? $this->settings : $this->settings[$key];
     }

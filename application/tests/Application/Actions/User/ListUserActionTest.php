@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Application\Actions\User;
 
 use App\Application\Actions\ActionPayload;
-use App\Domain\User\UserRepository;
-use App\Domain\User\User;
+use App\Domain\Job\JobRepository;
+use App\Domain\Job\Job;
 use DI\Container;
 use Tests\TestCase;
 
@@ -19,15 +19,15 @@ class ListUserActionTest extends TestCase
         /** @var Container $container */
         $container = $app->getContainer();
 
-        $user = new User(1, 'bill.gates', 'Bill', 'Gates');
+        $user = new Job(1, 'bill.gates', 'Bill', 'Gates');
 
-        $userRepositoryProphecy = $this->prophesize(UserRepository::class);
+        $userRepositoryProphecy = $this->prophesize(JobRepository::class);
         $userRepositoryProphecy
             ->findAll()
             ->willReturn([$user])
             ->shouldBeCalledOnce();
 
-        $container->set(UserRepository::class, $userRepositoryProphecy->reveal());
+        $container->set(JobRepository::class, $userRepositoryProphecy->reveal());
 
         $request = $this->createRequest('GET', '/users');
         $response = $app->handle($request);

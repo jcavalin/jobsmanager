@@ -1,29 +1,24 @@
 <?php
 
-declare(strict_types=1);
 
 namespace App\Application\Actions;
 
 use App\Domain\DomainException\DomainRecordNotFoundException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Psr\Log\LoggerInterface;
 use Slim\Exception\HttpBadRequestException;
 use Slim\Exception\HttpNotFoundException;
 
 abstract class Action
 {
-    protected LoggerInterface $logger;
-
     protected Request $request;
 
     protected Response $response;
 
     protected array $args;
 
-    public function __construct(LoggerInterface $logger)
+    public function __construct()
     {
-        $this->logger = $logger;
     }
 
     /**
@@ -32,9 +27,9 @@ abstract class Action
      */
     public function __invoke(Request $request, Response $response, array $args): Response
     {
-        $this->request = $request;
+        $this->request  = $request;
         $this->response = $response;
-        $this->args = $args;
+        $this->args     = $args;
 
         try {
             return $this->action();
@@ -52,16 +47,24 @@ abstract class Action
     /**
      * @return array|object
      */
-    protected function getFormData()
+    protected function getFormData(): object|array
     {
         return $this->request->getParsedBody();
     }
 
     /**
-     * @return mixed
-     * @throws HttpBadRequestException
+     * @return array|object
      */
-    protected function resolveArg(string $name)
+    protected function getQueryParams(): object|array
+    {
+        return $this->request->getQueryParams();
+    }
+
+    /**
+     * @param string $name
+     * @return mixed
+     */
+    protected function resolveArg(string $name): mixed
     {
         if (!isset($this->args[$name])) {
             throw new HttpBadRequestException($this->request, "Could not resolve argument `{$name}`.");
@@ -71,9 +74,9 @@ abstract class Action
     }
 
     /**
-     * @param array|object|null $data
+     * @param object|array|null $data
      */
-    protected function respondWithData($data = null, int $statusCode = 200): Response
+    protected function respondWithData(object|array $data = null, int $statusCode = 200): Response
     {
         $payload = new ActionPayload($statusCode, $data);
 
@@ -86,7 +89,17 @@ abstract class Action
         $this->response->getBody()->write($json);
 
         return $this->response
-                    ->withHeader('Content-Type', 'application/json')
-                    ->withStatus($payload->getStatusCode());
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus($payload->getStatusCode());
+    }
+
+    /**
+     * @throws ActionException
+     */
+    protected function validateRequired($params, $param)
+    {
+        if (empty($params[$param])) {
+            throw new ActionException("The param {$param} is required.");
+        }
     }
 }

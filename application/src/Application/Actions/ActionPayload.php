@@ -1,6 +1,5 @@
 <?php
 
-declare(strict_types=1);
 
 namespace App\Application\Actions;
 
@@ -18,13 +17,14 @@ class ActionPayload implements JsonSerializable
     private ?ActionError $error;
 
     public function __construct(
-        int $statusCode = 200,
-        $data = null,
+        int          $statusCode = 200,
+                     $data = null,
         ?ActionError $error = null
-    ) {
+    )
+    {
         $this->statusCode = $statusCode;
-        $this->data = $data;
-        $this->error = $error;
+        $this->data       = $data;
+        $this->error      = $error;
     }
 
     public function getStatusCode(): int
@@ -45,7 +45,6 @@ class ActionPayload implements JsonSerializable
         return $this->error;
     }
 
-    #[\ReturnTypeWillChange]
     public function jsonSerialize(): array
     {
         $payload = [

@@ -1,6 +1,5 @@
 <?php
 
-declare(strict_types=1);
 
 namespace App\Application\Handlers;
 
@@ -24,9 +23,9 @@ class HttpErrorHandler extends SlimErrorHandler
      */
     protected function respond(): Response
     {
-        $exception = $this->exception;
+        $exception  = $this->exception;
         $statusCode = 500;
-        $error = new ActionError(
+        $error      = new ActionError(
             ActionError::SERVER_ERROR,
             'An internal error has occurred while processing your request.'
         );
@@ -58,7 +57,7 @@ class HttpErrorHandler extends SlimErrorHandler
             $error->setDescription($exception->getMessage());
         }
 
-        $payload = new ActionPayload($statusCode, null, $error);
+        $payload        = new ActionPayload($statusCode, null, $error);
         $encodedPayload = json_encode($payload, JSON_PRETTY_PRINT);
 
         $response = $this->responseFactory->createResponse($statusCode);

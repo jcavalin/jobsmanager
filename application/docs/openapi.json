@@ -4,13 +4,34 @@
         "title": "Application",
         "version": "1.0.0"
     },
+    "servers": [
+        {
+            "url": "http://localhost:8080"
+        }
+    ],
     "paths": {
-        "/": {
+        "/jobs": {
             "get": {
-                "operationId": "49018aee737ae321b8fa3d1ce989ffc9",
+                "tags": [
+                    "Job"
+                ],
+                "description": "Returns jobs according to the user",
+                "operationId": "c7ebf5165c2037d3b91ff9a920931220",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "query",
+                        "description": "The user email who want to see the jobs",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "regular.1@jobsmapp.com"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Documentation for OpenApi"
+                        "description": "Jobs list"
                     }
                 }
             }

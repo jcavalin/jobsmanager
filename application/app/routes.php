@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 use App\Application\Actions\Index\IndexAction;
-use App\Application\Actions\User\ListUsersAction;
-use App\Application\Actions\User\ViewUserAction;
+use App\Application\Actions\Job\ListJobsAction;
+use App\Application\Actions\Job\SaveJobAction;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
@@ -18,8 +18,8 @@ return function (App $app) {
 
     $app->get('/', IndexAction::class);
 
-    $app->group('/users', function (Group $group) {
-        $group->get('', ListUsersAction::class);
-        $group->get('/{id}', ViewUserAction::class);
+    $app->group('/jobs', function (Group $group) {
+        $group->get('', ListJobsAction::class);
+        $group->post('/', SaveJobAction::class);
     });
 };
