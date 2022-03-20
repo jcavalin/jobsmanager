@@ -35,8 +35,8 @@ class Mailer implements EmailInterface
     {
         $this->mailer->Subject = $subject;
         $this->mailer->Body    = $body;
-        $this->mailer->addAddress($to);
         $this->mailer->setFrom($from ?? $this->from);
+        array_map(fn($address) => $this->mailer->addAddress($address), explode(',', $to));
 
         return $this->mailer->send();
     }
