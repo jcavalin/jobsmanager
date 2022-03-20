@@ -96,10 +96,12 @@ abstract class Action
     /**
      * @throws ActionException
      */
-    protected function validateRequired($params, $param)
+    protected function validateRequired($params, $param): static
     {
         if (empty($params[$param])) {
             throw new ActionException("The param {$param} is required.");
         }
+
+        return $this;
     }
 }

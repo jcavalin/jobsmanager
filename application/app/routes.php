@@ -20,6 +20,6 @@ return function (App $app) {
 
     $app->group('/jobs', function (Group $group) {
         $group->get('', ListJobsAction::class);
-        $group->post('/', SaveJobAction::class);
+        $group->post('', SaveJobAction::class);
     });
 };
