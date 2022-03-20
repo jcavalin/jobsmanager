@@ -52,7 +52,7 @@ POST /jobs
               -H 'Content-Type: multipart/form-data' \
               -F 'user=regular.1@jobsmapp.com' \
               -F 'title=Job title' \
-              -F 'description=Job description' \
+              -F 'description=Job description'
 ```
 
 Each endpoint needs the ```user``` parameter to be passed in the request, which is the email of the user. 
