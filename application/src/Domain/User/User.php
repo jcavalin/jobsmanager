@@ -38,4 +38,9 @@ class User implements JsonSerializable
     {
         return $this->role === UserType::MANAGER;
     }
+
+    public function email(): string
+    {
+        return $this->email;
+    }
 }

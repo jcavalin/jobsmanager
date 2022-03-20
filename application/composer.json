@@ -24,12 +24,13 @@
     "require": {
         "php": "^8.1",
         "ext-json": "*",
+        "ext-pdo": "*",
         "monolog/monolog": "^2.3",
         "php-di/php-di": "^6.3",
+        "phpmailer/phpmailer": "^6.6",
         "slim/psr7": "^1.5",
         "slim/slim": "^4.9",
-        "zircote/swagger-php": "^4.2",
-      "ext-pdo": "*"
+        "zircote/swagger-php": "^4.2"
     },
     "require-dev": {
         "jangregor/phpstan-prophecy": "^1.0.0",

@@ -21,7 +21,14 @@ return function (ContainerBuilder $containerBuilder) {
                     'database'   => $_ENV['DB_DATABASE'],
                     'username'   => $_ENV['DB_USERNAME'],
                     'password'   => $_ENV['DB_PASSWORD'],
-                ]
+                ],
+                'email'               => [
+                    'host'     => $_ENV['EMAIL_HOST'],
+                    'username' => $_ENV['EMAIL_USERNAME'],
+                    'password' => $_ENV['EMAIL_PASSWORD'],
+                    'port'     => $_ENV['EMAIL_PORT'],
+                    'from'     => $_ENV['EMAIL_FROM'],
+                ],
             ]);
         }
     ]);

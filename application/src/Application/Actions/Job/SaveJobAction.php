@@ -4,6 +4,7 @@
 namespace App\Application\Actions\Job;
 
 use App\Application\Actions\ValidationException;
+use App\Domain\Job\JobManagerNotifier;
 use App\Domain\Job\JobRepository;
 use App\Domain\Job\JobBuilder;
 use App\Domain\User\UserNotFoundException;
@@ -14,12 +15,18 @@ use OpenApi\Attributes as OA;
 class SaveJobAction extends JobAction
 {
     private JobBuilder $jobBuilder;
+    private JobManagerNotifier $jobManagerNotifier;
 
-    public function __construct(JobRepository $jobRepository, UserRepository $userRepository, JobBuilder $jobBuilder)
-    {
+    public function __construct(
+        JobRepository $jobRepository,
+        UserRepository $userRepository,
+        JobBuilder $jobBuilder,
+        JobManagerNotifier $jobManagerNotifier
+    ){
         parent::__construct($jobRepository, $userRepository);
 
-        $this->jobBuilder = $jobBuilder;
+        $this->jobBuilder         = $jobBuilder;
+        $this->jobManagerNotifier = $jobManagerNotifier;
     }
 
     /**
@@ -62,20 +69,20 @@ class SaveJobAction extends JobAction
     protected function action(): Response
     {
         $params = $this->getFormData();
-
         $this->validation->required($this->request, $params, 'user')
             ->required($this->request, $params, 'title')
             ->required($this->request, $params, 'description')
             ->maxLength($this->request, $params, 'title', 100);
 
         $user = $this->userRepository->findByEmail($params['user']);
-
-        $job = $this->jobBuilder->addTitle($params['title'])
+        $job  = $this->jobBuilder->addTitle($params['title'])
             ->addDescription($params['description'])
             ->addUserId($user->id())
             ->build();
 
         $this->jobRepository->save($job);
+
+        $this->jobManagerNotifier->notify($job);
 
         return $this->respondWithData(['id' => $job->id()]);
     }

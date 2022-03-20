@@ -10,4 +10,6 @@ interface UserRepository
      * @return User|null
      */
     public function findByEmail(string $email): ?User;
+
+    public function getManagerEmails(): ?array;
 }
