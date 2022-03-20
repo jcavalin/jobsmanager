@@ -7,6 +7,7 @@ namespace Tests\Application\Actions\Job;
 use App\Application\Actions\ActionPayload;
 use App\Application\Actions\ValidationException;
 use App\Domain\Job\JobRepository;
+use Slim\Exception\HttpNotFoundException;
 use Tests\TestCase;
 
 class ListJobsActionTest extends TestCase
@@ -57,6 +58,17 @@ class ListJobsActionTest extends TestCase
 
         $request = $this->createRequest('GET', '/jobs')
             ->withQueryParams([]);
+        $app->handle($request);
+    }
+
+    public function testShouldValidateInvalidUser()
+    {
+        $app = $this->getAppInstance();
+
+        $this->expectException(HttpNotFoundException::class);
+
+        $request = $this->createRequest('GET', '/jobs')
+            ->withQueryParams(['user' => 'doesntexist@jobsmapp.com']);
         $app->handle($request);
     }
 }

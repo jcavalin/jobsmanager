@@ -9,6 +9,7 @@ use App\Domain\Job\JobManagerNotifier;
 use App\Domain\Job\JobRepository;
 use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
+use Slim\Exception\HttpNotFoundException;
 use Tests\TestCase;
 
 class SaveJobActionTest extends TestCase
@@ -108,6 +109,21 @@ class SaveJobActionTest extends TestCase
 
         $request = $this->createRequest('POST', '/jobs')
             ->withParsedBody([
+                'title'       => 'Job Title',
+                'description' => 'Job Description'
+            ]);
+        $app->handle($request);
+    }
+
+    public function testShouldValidateInvalidUser()
+    {
+        $app = $this->getAppInstance();
+
+        $this->expectException(HttpNotFoundException::class);
+
+        $request = $this->createRequest('POST', '/jobs')
+            ->withParsedBody([
+                'user'        => 'doesntexist@jobsmapp.com',
                 'title'       => 'Job Title',
                 'description' => 'Job Description'
             ]);
