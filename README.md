@@ -41,11 +41,21 @@ The application has two endpoints:
 ```
 GET /jobs
     - List all jobs
+    - Example: curl -X 'GET' \
+              'http://localhost:8080/jobs?user=regular.1%40jobsmapp.com' \
+              -H 'accept: */*'
 POST /jobs
     - Create a new job
+    - Example: curl -X 'POST' \
+              'http://localhost:8080/jobs' \
+              -H 'accept: */*' \
+              -H 'Content-Type: multipart/form-data' \
+              -F 'user=regular.1@jobsmapp.com' \
+              -F 'title=Job title' \
+              -F 'description=Job description' \
 ```
 
-Each endpoint needs the 'user' parameter to be passed in the request, which is the email of the user. 
+Each endpoint needs the ```user``` parameter to be passed in the request, which is the email of the user. 
 This parameter simulates the user authentication.
 There are three users available:
 ```
