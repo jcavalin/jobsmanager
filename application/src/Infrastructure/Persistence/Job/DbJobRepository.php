@@ -46,4 +46,12 @@ class DbJobRepository implements JobRepository
         $job->setId($id);
         return $job;
     }
+
+    public function findById(int $id): array
+    {
+        return $this->db->fetch(
+            "SELECT id, title, description, user_id FROM app.job WHERE id = :id",
+            ['id' => $id]
+        );
+    }
 }

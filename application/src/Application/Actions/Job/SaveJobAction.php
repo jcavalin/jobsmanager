@@ -81,7 +81,6 @@ class SaveJobAction extends JobAction
             ->build();
 
         $this->jobRepository->save($job);
-
         $this->jobManagerNotifier->notify($job);
 
         return $this->respondWithData(['id' => $job->id()]);

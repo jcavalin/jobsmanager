@@ -14,14 +14,12 @@ services:
       DB_DATABASE: app
       DB_USERNAME: mysql
       DB_PASSWORD: mypass
-      XDEBUG_SESSION: xdebug-docker
       PHP_IDE_CONFIG: "serverName=xdebug-docker"
       EMAIL_HOST: mailhog
       EMAIL_USERNAME: ''
       EMAIL_PASSWORD: ''
       EMAIL_PORT: 1025
       EMAIL_FROM: notify@jobsmapp.com
-      DOCKER: 1
     volumes:
       - ./application:/var/www/html
 
