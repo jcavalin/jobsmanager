@@ -9,6 +9,7 @@
 
 /application/coverage/
 /application/vendor/
+/application/var/*
 /application/logs/*
 !/application/logs/README.md
 /application/.phpunit.result.cache
