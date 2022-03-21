@@ -10,10 +10,12 @@ COPY .docker/000-default.conf /etc/apache2/sites-available/000-default.conf
 
 RUN a2enmod rewrite
 
-RUN docker-php-ext-install mysqli pdo pdo_mysql
+RUN docker-php-ext-install mysqli pdo pdo_mysql sockets
 
 RUN pecl install xdebug\
 RUN docker-php-ext-enable xdebug
 COPY .docker/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
-CMD bash -c "php composer.phar install && apache2-foreground"
+ADD .docker/start.sh /
+RUN chmod +x /start.sh
+CMD ["/start.sh"]

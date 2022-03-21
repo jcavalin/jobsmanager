@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\Email;
 
-use App\Infrastructure\Command\CommandMailer;
+use App\Infrastructure\Command\CommandQueueMailer;
 
 class AsyncMailer implements EmailInterface
 {
@@ -15,7 +15,7 @@ class AsyncMailer implements EmailInterface
      */
     public function send(string $subject, string $body, string $to, string $from = null): bool
     {
-        $commandClass = CommandMailer::class;
+        $commandClass = CommandQueueMailer::class;
         $params       = json_encode([
             'subject' => $subject,
             'body'    => $body,

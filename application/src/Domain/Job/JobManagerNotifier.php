@@ -12,7 +12,7 @@ class JobManagerNotifier
 
     public function __construct(EmailNotifier $notifier, UserRepository $userRepository)
     {
-        $this->notifier      = $notifier;
+        $this->notifier       = $notifier;
         $this->userRepository = $userRepository;
     }
 

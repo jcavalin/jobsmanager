@@ -34,6 +34,12 @@ Wait for all services to be up and running and visit [http://localhost](http://l
     - Email service and client
     - http://localhost:8025
     - Port 1025 
+7. RabbitMQ
+    - Message Broker
+    - http://localhost:8082
+    - Port 5672 
+    - Username: myuser
+    - Password: mypassword
 
 #### Application
 The application has two endpoints:

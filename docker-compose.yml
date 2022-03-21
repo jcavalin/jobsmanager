@@ -20,6 +20,12 @@ services:
       EMAIL_PASSWORD: ''
       EMAIL_PORT: 1025
       EMAIL_FROM: notify@jobsmapp.com
+      QUEUE_HOST: rabbitmq
+      QUEUE_PORT: 5672
+      QUEUE_USER: myuser
+      QUEUE_PASSWORD: mypassword
+      QUEUE_EXCHANGE: router
+      QUEUE_NAME: notify
     volumes:
       - ./application:/var/www/html
 
@@ -64,3 +70,12 @@ services:
       - "1025:1025"
       - "8025:8025"
     command: -jim-accept=0.5 -jim-linkspeed-affect=0.5 -jim-linkspeed-max=1024
+
+  rabbitmq:
+    image: rabbitmq:3.9-management-alpine
+    ports:
+      - '5672:5672'
+      - '8082:15672'
+    environment:
+      - RABBITMQ_DEFAULT_USER=myuser
+      - RABBITMQ_DEFAULT_PASS=mypassword
