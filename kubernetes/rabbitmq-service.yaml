@@ -6,17 +6,17 @@ metadata:
     kompose.version: 1.26.0 (40646f47)
   creationTimestamp: null
   labels:
-    io.kompose.service: mailhog
-  name: mailhog
+    io.kompose.service: rabbitmq
+  name: rabbitmq
 spec:
   ports:
-    - name: "1025"
-      port: 1025
-      targetPort: 1025
-    - name: "8082"
-      port: 8082
-      targetPort: 8025
+    - name: "5672"
+      port: 5672
+      targetPort: 5672
+    - name: "8083"
+      port: 8083
+      targetPort: 15672
   selector:
-    io.kompose.service: mailhog
+    io.kompose.service: rabbitmq
 status:
   loadBalancer: {}

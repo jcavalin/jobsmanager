@@ -46,6 +46,18 @@ spec:
             - name: EMAIL_USERNAME
             - name: PHP_IDE_CONFIG
               value: serverName=xdebug-docker
+            - name: QUEUE_EXCHANGE
+              value: router
+            - name: QUEUE_HOST
+              value: rabbitmq
+            - name: QUEUE_NAME
+              value: notify
+            - name: QUEUE_PASSWORD
+              value: mypassword
+            - name: QUEUE_PORT
+              value: "5672"
+            - name: QUEUE_USER
+              value: myuser
           image: application
           name: application
           ports:
