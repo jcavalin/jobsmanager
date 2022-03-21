@@ -8,6 +8,9 @@ services:
       - "8080:80"
     depends_on:
       - db
+      - mailhog
+      - rabbitmq
+      - flyway
     environment:
       DB_CONNECTION: mysql
       DB_HOST: db
@@ -59,6 +62,8 @@ services:
     image: swaggerapi/swagger-ui
     ports:
       - "80:8080"
+    depends_on:
+      - application
     environment:
       SWAGGER_JSON: /tmp/openapi.json
     volumes:
@@ -68,14 +73,14 @@ services:
     image: mailhog/mailhog
     ports:
       - "1025:1025"
-      - "8025:8025"
+      - "8082:8025"
     command: -jim-accept=0.5 -jim-linkspeed-affect=0.5 -jim-linkspeed-max=1024
 
   rabbitmq:
     image: rabbitmq:3.9-management-alpine
     ports:
       - '5672:5672'
-      - '8082:15672'
+      - '8083:15672'
     environment:
       - RABBITMQ_DEFAULT_USER=myuser
       - RABBITMQ_DEFAULT_PASS=mypassword
