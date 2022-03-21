@@ -38,7 +38,7 @@ function consumerStart()
 
             $message->ack();
 
-            echo "Finish\n";
+            echo "Finished\n";
             echo "###################################\n";
 
             // Send a message with the string "quit" to cancel the consumer.
