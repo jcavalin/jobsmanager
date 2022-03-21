@@ -35,7 +35,7 @@ class SaveJobAction extends JobAction
     #[OA\Post(path: '/jobs', description: "Creates a new jobs for the user", tags: ["Job"])]
     #[OA\Response(response: '200', description: 'Job saved')]
     #[OA\RequestBody(
-        description: 'The user email who owns the jobs',
+        description: 'The job data to save',
         required: true,
         content: [new OA\MediaType(
             mediaType: 'multipart/form-data',

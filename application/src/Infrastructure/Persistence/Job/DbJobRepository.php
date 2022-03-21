@@ -16,9 +16,6 @@ class DbJobRepository implements JobRepository
         $this->db = $db;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findAll(int $userId = null): array
     {
         $sql    = "SELECT id, title, description, user_id FROM app.job";

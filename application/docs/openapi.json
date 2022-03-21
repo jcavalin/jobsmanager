@@ -42,7 +42,7 @@
                 "description": "Creates a new jobs for the user",
                 "operationId": "83e21c47bb5a0e4aabd3ac8b56f108cb",
                 "requestBody": {
-                    "description": "The user email who owns the jobs",
+                    "description": "The job data to save",
                     "required": true,
                     "content": {
                         "multipart/form-data": {
