@@ -24,7 +24,6 @@ class SaveJobActionTest extends TestCase
         $response = $app->handle($request);
         $payload  = json_decode((string) $response->getBody(), true);
 
-        /** @var JobRepository $payload */
         $jobRepository = $app->getContainer()->get(JobRepository::class);
         $jobData       = $jobRepository->findById($payload['data']['id']);
 
