@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Tests\Application\Actions\Job;
 
 use App\Application\Actions\ActionPayload;
@@ -20,7 +18,6 @@ class ListJobsActionTest extends TestCase
             ->withQueryParams(['user' => 'manager@jobsmapp.com']);
         $response = $app->handle($request);
 
-        /** @var JobRepository $payload */
         $jobRepository = $app->getContainer()->get(JobRepository::class);
         $jobs          = $jobRepository->findAll();
 
@@ -39,7 +36,6 @@ class ListJobsActionTest extends TestCase
             ->withQueryParams(['user' => 'regular.1@jobsmapp.com']);
         $response = $app->handle($request);
 
-        /** @var JobRepository $payload */
         $jobRepository = $app->getContainer()->get(JobRepository::class);
         $jobs          = $jobRepository->findAll(1);
 

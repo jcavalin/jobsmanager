@@ -1,14 +1,11 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Tests\Application\Actions\Job;
 
 use App\Application\Actions\ValidationException;
 use App\Domain\Job\JobManagerNotifier;
 use App\Domain\Job\JobRepository;
 use Prophecy\Argument;
-use Prophecy\Prophecy\ObjectProphecy;
 use Slim\Exception\HttpNotFoundException;
 use Tests\TestCase;
 
@@ -40,7 +37,6 @@ class SaveJobActionTest extends TestCase
 
         $notified            = false;
         $jobNotifierProphecy = $this->prophesize(JobManagerNotifier::class);
-        /** @var ObjectProphecy */
         $jobNotifierProphecy->notify(Argument::any())->will(function () use (&$notified) {
             $notified = true;
         });
