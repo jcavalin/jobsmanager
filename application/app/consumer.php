@@ -40,11 +40,6 @@ function consumerStart()
 
             echo "Finished\n";
             echo "###################################\n";
-
-            // Send a message with the string "quit" to cancel the consumer.
-            if ($message->body === 'quit') {
-                $message->getChannel()->basic_cancel($message->getConsumerTag());
-            }
         });
 
         register_shutdown_function(function ($channel, $connection) {
